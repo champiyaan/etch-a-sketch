@@ -2,16 +2,106 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Grid Sketch Pad</title>
-    <link rel="stylesheet" href="styles.css" />
+    <script src="./script.js" defer></script>
+    <link rel="stylesheet" href="./styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@400;700&display=swap"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>"
+    />
+    <title>Etch-A-Sketch</title>
   </head>
   <body>
-    <!-- Button for resizing the grid -->
-    <button id="resizeButton">Resize Grid</button>
-    <!-- Container div for the grid squares -->
-    <div id="container"></div>
-    <!-- JavaScript file for functionality -->
-    <script src="script.js"></script>
+    <div class="sketch-pad">
+      <div class="title">
+        <h3 id="title1">Magic</h3>
+        <h1 id="title2">Etch A Sketch</h1>
+        <h3 id="title3">Screen</h3>
+      </div>
+      <div class="container"></div>
+      <div class="buttons">
+        <button class="colorBtn" onclick="changeColor('black')">Black</button>
+        <button class="colorBtn" onclick="changeColor('gray')">Gray</button>
+        <button class="colorBtn" onclick="changeColor('random')">
+          Rainbow
+        </button>
+        <button class="colorBtn" onclick="changeColor('#e0e0e0')">Erase</button>
+        <button class="colorBtn" onclick="resetContainer()">Reset</button>
+      </div>
+      <div class="resize">
+        <input
+          type="text"
+          placeholder="Set Size: 2 - 100"
+          onchange="changeSize(this.value)"
+        />
+        <button class="sizeBtn">Resize</button>
+      </div>
+    </div>
+    <style>
+      .container {
+        display: grid;
+        width: 700px;
+        height: 400px;
+        background-color: #e0e0e0;
+        border: #acacac solid;
+        margin: auto;
+      }
+
+      .cell {
+        border: #acacacfc solid thin;
+      }
+    </style>
+    <script>
+      let color = "black";
+
+      function populateContainer(size) {
+        let container = document.querySelector(".container");
+        let squares = container.querySelectorAll("div");
+        squares.forEach((div) => div.remove());
+        container.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+        container.style.gridTemplateRows = `repeat(${size},1fr)`;
+
+        let amount = size * size;
+
+        for (let i = 0; i < amount; i++) {
+          let square = document.createElement("div");
+          square.classList.add("cell");
+          container.style.backgroundColor = "#e0e0e0";
+          square.addEventListener("mouseover", colorSquare);
+          container.insertAdjacentElement("beforeend", square);
+        }
+      }
+
+      populateContainer(16);
+
+      function changeSize(input) {
+        input >= 2 && input <= 100
+          ? populateContainer(input)
+          : alert(
+              "Input error , too many or too few squares choose between 2 - 100 "
+            );
+      }
+
+      function colorSquare() {
+        color === "random"
+          ? (this.style.backgroundColor = `hsl(${
+              Math.random() * 360
+            },100% , 50%)`)
+          : (this.style.backgroundColor = color);
+      }
+      function changeColor(choice) {
+        color = choice;
+      }
+      function resetContainer() {
+        let container = document.querySelector(".container");
+        let squares = document.querySelectorAll("div");
+        squares.forEach((div) => (div.style.backgroundColor = "#e0e0e0"));
+      }
+    </script>
   </body>
 </html>
