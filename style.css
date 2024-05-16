@@ -1,1 +1,12 @@
-/
+.container {
+  display: grid;
+  width: 700px;
+  height: 400px;
+  background-color: #e0dd0e;
+  border: #acacac solid;
+  margin: auto;
+}
+
+.cell {
+  border: #acacacfc solid thin;
+}

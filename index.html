@@ -4,16 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./script.js" defer></script>
-    <link rel="stylesheet" href="./styles.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@400;700&display=swap"
-    />
-    <link
-      rel="icon"
-      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>"
-    />
+
+    <link rel="stylesheet" href="style.css" />
     <title>Etch-A-Sketch</title>
   </head>
   <body>
@@ -42,67 +34,7 @@
         <button class="sizeBtn">Resize</button>
       </div>
     </div>
-    <style>
-      .container {
-        display: grid;
-        width: 700px;
-        height: 400px;
-        background-color: #e0dd0e;
-        border: #acacac solid;
-        margin: auto;
-      }
 
-      .cell {
-        border: #acacacfc solid thin;
-      }
-    </style>
-    <script>
-      let color = "black";
-      function populateContainer(size) {
-        let container = document.querySelector(".container");
-        let squares = container.querySelectorAll("div");
-        squares.forEach((div) => div.remove());
-        // Set grid template columns and rows based on size
-
-        container.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
-        container.style.gridTemplateRows = `repeat(${size}, 1fr)`;
-
-        let amount = size * size;
-
-        for (let i = 0; i < amount; i++) {
-          let square = document.createElement("div");
-          square.classList.add("cell");
-          container.style.backgroundColor = "#e0dd0e";
-          square.addEventListener("mouseover", colorSquare);
-          container.insertAdjacentElement("beforeend", square);
-        }
-      }
-      populateContainer(16);
-
-      function changeSize(input) {
-        input >= 2 && input <= 100
-          ? populateContainer(input)
-          : alert("Input error ! choose between  2 to 100 squares");
-      }
-
-      function colorSquare() {
-        color === "random"
-          ? (this.style.backgroundColor = `hsl(${
-              Math.random() * 360
-            },100% ,50%)`)
-          : (this.style.backgroundColor = color);
-      }
-
-      function changeColor(choice) {
-        color = choice;
-      }
-
-      function resetContainer() {
-        let container = document.querySelector(".container");
-        let squares = container.querySelectorAll("div");
-
-        squares.forEach((div) => (div.style.backgroundColor = "#e0dd0e"));
-      }
-    </script>
+    <script src="index.js"></script>
   </body>
 </html>
